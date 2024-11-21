@@ -5,7 +5,7 @@ CFLAGS = -g -I include -I stack/include -Wcast-qual -Wconversion -Wctor-dtor-pri
 		 -Wpointer-arith -Wsign-promo -Wstack-usage=8192 -Wstrict-aliasing           \
 		 -Wstrict-null-sentinel -Wtype-limits -Wwrite-strings -fexceptions -pipe     \
 
-LDFLAGS = -lmenu -lpanel -lncursesw
+LDFLAGS = -lmenuw -lpanelw -lncursesw
 
 SOURCES_DIR     = src
 OBJECTS_DIR     = bin

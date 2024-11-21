@@ -3,6 +3,8 @@
 #include <locale.h>
 #include <string.h>
 #include <stdlib.h>
+
+#include "graphics.h"
 #include "menu.h"
 
 int main()
@@ -24,19 +26,22 @@ int main()
     int rows, cols = 0;
     getmaxyx(stdscr, rows, cols);
 
-    Menu_t menu = {};
+    // Graphics_t graphics = {};
 
-    MenuCtor(&menu, rows/2, cols/2, rows/3, cols/3);
+    // GraphicsCtor(&graphics, rows, cols);
 
-    keypad(menu.win, TRUE);
+    MainMenu_t menu = {};
+    MainMenuCtor(&menu, rows, cols);
+
+    keypad(menu.menu.win, TRUE);
 
     int highlight = 0;
     int running   = true;
-    MenuPrint(&menu, highlight);
+    MenuPrint(&menu.menu, highlight);
 
     while (running)
     {
-        switch(wgetch(menu.win))
+        switch(wgetch(menu.menu.win))
         {
             case KEY_UP:
                 (highlight == 0) ? highlight = nButtons - 1 : --highlight;
@@ -45,7 +50,7 @@ int main()
                 (highlight == nButtons - 1) ? highlight = 0 : ++highlight;
                 break;
 			case '\n':
-				ParseChoice(highlight);
+				ParseChoice(&menu, highlight);
 				break;
             case 'q':
                 running = false;
@@ -55,7 +60,7 @@ int main()
 				break;
         }
 
-        MenuPrint(&menu, highlight);
+        MenuPrint(&menu.menu, highlight);
     }
 
     refresh();
